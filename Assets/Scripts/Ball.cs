@@ -14,6 +14,8 @@ public class Ball : MonoBehaviour
     [SerializeField]
     GameObject gameOverHud;
     public TimerScript clock;
+    public AudioClip sfx;
+    AudioSource soundSource;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,7 @@ public class Ball : MonoBehaviour
         startPos = transform.position;
         rb = GetComponent<Rigidbody>();
         gameOverHud.SetActive(false);
+        soundSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,6 +58,7 @@ public class Ball : MonoBehaviour
     {
         if(collision.gameObject.tag == "Paddle")
         {
+            soundSource.PlayOneShot(sfx);
             score++;
             //Update the score text
             scoreTxt.text = $"Score: {score}"; //string literal
